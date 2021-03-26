@@ -1,5 +1,5 @@
 import React from "react";
-import { playAudio, changeActiveSong } from "../util";
+import { changeActiveSong } from "../util";
 
 const LibrarySong = ({
   currentSong,
@@ -11,13 +11,13 @@ const LibrarySong = ({
 }) => {
   const songClickHandler = async () => {
     // sets the playing song to selected song
-    setCurrentSong(currentSong);
+    await setCurrentSong(currentSong);
 
     // changes the 'active' property of current song to true and that of others to false
     changeActiveSong(songs, setSongs, currentSong);
 
     // play the clicked song
-    playAudio(isPlaying, audioRef);
+    if (isPlaying) audioRef.current.play();
   };
 
   return (

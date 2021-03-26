@@ -6,7 +6,7 @@ import {
   faPause,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { changeActiveSong, playAudio } from "../util";
+import { changeActiveSong } from "../util";
 
 const Player = ({
   currentSong,
@@ -19,11 +19,6 @@ const Player = ({
   setCurrentSong,
   setSongs,
 }) => {
-  // ref
-  useEffect(() => {
-    changeActiveSong(songs, setSongs, currentSong);
-  }, [currentSong]);
-
   // Event handlers
   const playSongHandler = () => {
     if (isPlaying) {
@@ -44,13 +39,17 @@ const Player = ({
     setSongInfo({ ...songInfo, currentTime: e.target.value });
   };
 
-  const skipTrackHandler = (direction) => {
+  const skipTrackHandler = async (direction) => {
     const currentIndex = songs.findIndex((song) => song.id === currentSong.id);
-    if (direction === "next")
-      setCurrentSong(songs[(currentIndex + 1) % songs.length]);
-    else
-      setCurrentSong(songs[(currentIndex - 1 + songs.length) % songs.length]);
-    playAudio(isPlaying, audioRef);
+    let newSong;
+    if (direction === "next") {
+      newSong = songs[(currentIndex + 1) % songs.length];
+    } else {
+      newSong = songs[(currentIndex - 1 + songs.length) % songs.length];
+    }
+    await setCurrentSong(newSong);
+    changeActiveSong(songs, setSongs, newSong);
+    if (isPlaying) audioRef.current.play();
   };
 
   return (
