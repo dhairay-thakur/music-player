@@ -5,7 +5,7 @@ import { faMusic } from "@fortawesome/free-solid-svg-icons";
 
 const Nav = ({ libOpen, setLibOpen }) => {
   return (
-    <nav>
+    <nav className={`${libOpen ? "library-open" : ""}`}>
       <h1>Music Player</h1>
       <button onClick={() => setLibOpen(!libOpen)}>
         Library

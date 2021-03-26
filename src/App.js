@@ -35,10 +35,11 @@ const App = () => {
   };
 
   return (
-    <div className="App">
+    <div className="App" style={{ backgroundColor: currentSong.color[1] }}>
       <Nav libOpen={libOpen} setLibOpen={setLibOpen} />
-      <Song currentSong={currentSong} />
+      <Song libOpen={libOpen} currentSong={currentSong} />
       <Player
+        libOpen={libOpen}
         setSongs={setSongs}
         setCurrentSong={setCurrentSong}
         songs={songs}

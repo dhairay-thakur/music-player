@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   faAngleLeft,
   faAngleRight,
@@ -10,6 +10,7 @@ import { changeActiveSong } from "../util";
 
 const Player = ({
   currentSong,
+  libOpen,
   isPlaying,
   setIsPlaying,
   audioRef,
@@ -53,7 +54,7 @@ const Player = ({
   };
 
   return (
-    <div className="player">
+    <div className={`player ${libOpen ? "library-open" : ""}`}>
       <div className="time-control">
         <p>{timeFormat(songInfo.currentTime)}</p>
         <input
