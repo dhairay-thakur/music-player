@@ -1,4 +1,5 @@
 import React from "react";
+import { playAudio, changeActiveSong } from "../util";
 
 const LibrarySong = ({
   currentSong,
@@ -13,24 +14,10 @@ const LibrarySong = ({
     setCurrentSong(currentSong);
 
     // changes the 'active' property of current song to true and that of others to false
-    const newSongs = songs.map((song) => {
-      if (song.id === currentSong.id) {
-        return { ...song, active: true };
-      } else {
-        return { ...song, active: false };
-      }
-    });
-    setSongs(newSongs);
+    changeActiveSong(songs, setSongs, currentSong);
 
     // play the clicked song
-    if (isPlaying) {
-      const playPromise = audioRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          audioRef.current.play();
-        });
-      }
-    }
+    playAudio(isPlaying, audioRef);
   };
 
   return (
