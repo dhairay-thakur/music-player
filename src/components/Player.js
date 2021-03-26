@@ -35,7 +35,6 @@ const Player = ({
     Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2);
 
   const dragHandler = (e) => {
-    console.log("dfgdg");
     audioRef.current.currentTime = e.target.value;
     setSongInfo({ ...songInfo, currentTime: e.target.value });
   };
@@ -57,13 +56,24 @@ const Player = ({
     <div className={`player ${libOpen ? "library-open" : ""}`}>
       <div className="time-control">
         <p>{timeFormat(songInfo.currentTime)}</p>
-        <input
-          onChange={dragHandler}
-          min={0}
-          max={songInfo.duration || 0}
-          type="range"
-          value={songInfo.currentTime}
-        />
+        <div
+          className="track"
+          style={{
+            background: currentSong.color[0],
+          }}
+        >
+          <input
+            onChange={dragHandler}
+            min={0}
+            max={songInfo.duration || 0}
+            type="range"
+            value={songInfo.currentTime}
+          />
+          <div
+            style={{ transform: `translateX(${songInfo.animation}%)` }}
+            className="animate-track"
+          ></div>
+        </div>
         <p>{timeFormat(songInfo.duration || 0)}</p>
       </div>
       <div className="play-control">

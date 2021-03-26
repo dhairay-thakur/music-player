@@ -65,3 +65,9 @@
 .selected {
   background: rgb(189, 225, 248);
 }
+
+@media screen and (max-width: 768px) {
+  .library {
+    width: 60%;
+  }
+}

@@ -14,6 +14,7 @@ const App = () => {
   const [songInfo, setSongInfo] = useState({
     currentTime: 0,
     duration: 0,
+    animation: 0,
   });
   const [libOpen, setLibOpen] = useState(false);
 
@@ -21,10 +22,12 @@ const App = () => {
     // console.log(e.target.duration)
     const currentTime = e.target.currentTime;
     const duration = e.target.duration;
+    const animation = Math.round((currentTime / duration) * 100);
     setSongInfo({
       ...songInfo,
       currentTime,
       duration,
+      animation,
     });
   };
 
